@@ -6,7 +6,9 @@ import com.whycody.catshealth.data.disease.DiseaseDao
 import com.whycody.catshealth.data.disease.DiseaseRepository
 import com.whycody.catshealth.data.symptom.SymptomDao
 import com.whycody.catshealth.data.symptom.SymptomRepository
+import com.whycody.catshealth.symptoms.SymptomsViewModel
 import org.koin.android.ext.koin.androidApplication
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val dataModule = module {
@@ -34,4 +36,8 @@ val dataModule = module {
 val repositoryModule = module {
     single { SymptomRepository(get()) }
     single { DiseaseRepository(get()) }
+}
+
+val viewModelModule = module {
+    viewModel { SymptomsViewModel(get())}
 }

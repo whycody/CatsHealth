@@ -11,7 +11,6 @@ import com.whycody.catshealth.data.symptom.SymptomDao
 public abstract class MyDatabase: RoomDatabase() {
 
     abstract fun diseaseDao(): DiseaseDao
+
     abstract fun symptomDao(): SymptomDao
-
-
 }
