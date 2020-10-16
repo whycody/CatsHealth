@@ -28,7 +28,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Kocie\nZdrowie"
-            android:paddingLeft="24dp"
+            android:paddingLeft="@dimen/appPadding"
             android:paddingTop="80dp"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -43,11 +43,12 @@
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
+        android:paddingLeft="@dimen/appPadding"
+        android:paddingRight="@dimen/appPadding"
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/symptomsBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30dp"
@@ -55,12 +56,13 @@
             android:textAllCaps="false"
             android:gravity="left"
             android:textSize="21sp"
-            android:text="@string/search_sickness_by_symptoms"
+            android:text="@string/search_diseases_by_symptoms"
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/ic_arrow_right_alt_24px"
             android:paddingRight="5dp"/>
 
         <Button
+            android:id="@+id/diseaseBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="30dp"
@@ -68,7 +70,7 @@
             android:textAllCaps="false"
             android:gravity="left"
             android:textSize="20sp"
-            android:text="@string/search_sickness_from_list"
+            android:text="@string/search_diseases_from_list"
             android:background="@android:color/transparent"
             android:drawableRight="@drawable/ic_arrow_right_alt_24px"
             android:paddingRight="5dp"/>

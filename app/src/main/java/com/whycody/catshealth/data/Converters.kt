@@ -1,4 +1,4 @@
-package com.whycody.catshealth
+package com.whycody.catshealth.data
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

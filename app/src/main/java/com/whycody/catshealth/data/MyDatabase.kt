@@ -3,7 +3,6 @@ package com.whycody.catshealth.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.whycody.catshealth.Converters
 import com.whycody.catshealth.data.disease.DiseaseDao
 import com.whycody.catshealth.data.symptom.SymptomDao
 
