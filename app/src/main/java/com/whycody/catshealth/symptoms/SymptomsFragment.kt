@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.whycody.catshealth.MainActivity
 import com.whycody.catshealth.R
-import com.whycody.catshealth.symptoms.recycler.SymptomAdapter
 import kotlinx.android.synthetic.main.fragment_symptoms.view.*
 import org.koin.android.ext.android.inject
 
@@ -22,14 +21,17 @@ class SymptomsFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_symptoms, container, false)
         view.symptomsRecycler.layoutManager = LinearLayoutManager(activity?.applicationContext)
-        val adapter = SymptomAdapter()
-        view.symptomsRecycler.adapter = adapter
+        view.symptomsRecycler.adapter = symptomsViewModel.adapter
         loadLayoutAnimation(view.symptomsRecycler)
-        symptomsViewModel.getAllSymptoms().observe(activity as MainActivity, {
-            adapter.setSymptoms(it)
-            view.symptomsRecycler.scheduleLayoutAnimation()
-        })
+        observeSymptoms()
         return view
+    }
+
+    private fun observeSymptoms() {
+        symptomsViewModel.getAllSymptomsItems().observe(activity as MainActivity, {
+            symptomsViewModel.adapter.setSymptomsItems(it)
+            view?.symptomsRecycler?.scheduleLayoutAnimation()
+        })
     }
 
     private fun loadLayoutAnimation(recyclerView: RecyclerView) {
@@ -37,5 +39,4 @@ class SymptomsFragment : Fragment() {
             AnimationUtils.loadLayoutAnimation(recyclerView.context, R.anim.layout_fall_down)
         recyclerView.layoutAnimation = layoutAnimationController
     }
-
 }

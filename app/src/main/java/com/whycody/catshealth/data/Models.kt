@@ -15,6 +15,10 @@ data class Symptom(
     }
 }
 
+data class SymptomItem(
+    val symptom: Symptom,
+    var checked: Boolean = false)
+
 @Entity(tableName = "diseases")
 data class Disease(
     @PrimaryKey @NotNull val id: Int,

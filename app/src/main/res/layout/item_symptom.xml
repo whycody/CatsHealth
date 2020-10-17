@@ -1,38 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout>
 
-    <View
-        android:id="@+id/underline"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/black"
-        android:alpha="0.08"/>
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="symptomItem"
+            type="com.whycody.catshealth.data.SymptomItem" />
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
+            name="listener"
+            type="com.whycody.catshealth.symptoms.SymptomClickListener" />
+    </data>
 
     <LinearLayout
+        android:onClick="@{()->listener.onClick(symptomItem, position)}"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/symptomName"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:text="@string/symptom"
-            android:textSize="20sp"
-            android:textColor="@color/colorGray"
-            android:padding="@dimen/appPadding"
-            android:layout_height="wrap_content"/>
+        <View
+            android:id="@+id/underline"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/black"
+            android:alpha="0.08"
+            android:visibility="@{position==0 ? View.INVISIBLE : View.VISIBLE}"/>
 
-        <CheckBox
-            android:id="@+id/symptomCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:paddingRight="@dimen/appPadding"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/symptomName"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:text="@{symptomItem.symptom.name}"
+                android:textSize="20sp"
+                android:textColor="@color/colorGray"
+                android:padding="@dimen/appPadding"
+                android:layout_height="wrap_content"/>
+
+            <CheckBox
+                android:id="@+id/symptomCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingRight="@dimen/appPadding"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:checked="@={symptomItem.checked}"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</layout>
