@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.whycody.catshealth.data.Symptom
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SymptomDao {
@@ -13,4 +14,7 @@ interface SymptomDao {
 
     @Query("SELECT * FROM symptoms")
     fun getAllSymptoms(): LiveData<List<Symptom>>
+
+    @Query("SELECT * FROM symptoms")
+    fun flowAllSymptoms(): Flow<List<Symptom>>
 }
