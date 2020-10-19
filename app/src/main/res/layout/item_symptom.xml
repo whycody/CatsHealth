@@ -18,6 +18,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{()->listener.onClick(symptomItem, position)}"
         android:orientation="vertical">
 
         <View
@@ -29,9 +30,9 @@
             android:visibility="@{position==0 ? View.INVISIBLE : View.VISIBLE}"/>
 
         <LinearLayout
+            android:id="@+id/symptomItemLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="@{()->listener.onClick(symptomItem, position)}"
             android:orientation="horizontal">
 
             <TextView

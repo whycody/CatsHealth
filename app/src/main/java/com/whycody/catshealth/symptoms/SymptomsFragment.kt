@@ -12,27 +12,29 @@ import com.whycody.catshealth.MainActivity
 import com.whycody.catshealth.R
 import com.whycody.catshealth.symptoms.recycler.SymptomAdapter
 import kotlinx.android.synthetic.main.fragment_symptoms.view.*
-import org.koin.android.ext.android.inject
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class SymptomsFragment : Fragment() {
 
-    private val symptomsViewModel: SymptomsViewModel by inject()
-    private val adapter = SymptomAdapter(symptomsViewModel)
+    private val symptomsViewModel: SymptomsViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_symptoms, container, false)
+        val adapter = SymptomAdapter(symptomsViewModel)
         view.symptomsRecycler.layoutManager = LinearLayoutManager(activity?.applicationContext)
         view.symptomsRecycler.adapter = adapter
         loadLayoutAnimation(view.symptomsRecycler)
-        observeSymptoms()
+        observeSymptoms(adapter)
         return view
     }
 
-    private fun observeSymptoms() {
+    private fun observeSymptoms(adapter: SymptomAdapter) {
         symptomsViewModel.getSymptomsItems().observe(activity as MainActivity, {
-            adapter.setSymptomsItems(it)
-            view?.symptomsRecycler?.scheduleLayoutAnimation()
+            if(adapter.getSymptomsItems().isEmpty()) {
+                adapter.setSymptomsItems(it)
+                view?.symptomsRecycler?.scheduleLayoutAnimation()
+            }
         })
     }
 

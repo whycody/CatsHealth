@@ -36,6 +36,8 @@ class SymptomAdapter(val symptomClickListener: SymptomClickListener): RecyclerVi
         notifyDataSetChanged()
     }
 
+    fun getSymptomsItems() = symptomsItems
+
     inner class SymptomHolder(private val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun setupData(symptomItem: SymptomItem) {
@@ -46,7 +48,7 @@ class SymptomAdapter(val symptomClickListener: SymptomClickListener): RecyclerVi
         }
 
         fun setCheckBoxListener() {
-            binding.root.setOnClickListener{
+            binding.root.symptomItemLinear?.setOnClickListener{
                 binding.root.symptomCheck.isChecked = !binding.root.symptomCheck.isChecked
             }
         }
