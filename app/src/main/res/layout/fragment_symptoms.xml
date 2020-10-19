@@ -1,47 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.whycody.catshealth.views.FixedNestedScrollView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    tools:context=".symptoms.SymptomsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <data>
+        <variable
+            name="checkedSymptomsSize"
+            type="Integer" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:background="@color/colorPrimary"
+        tools:context=".symptoms.SymptomsFragment">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            android:textColor="@color/colorHeaderGray"
-            android:text="@string/symptoms"
-            android:paddingTop="@dimen/appPadding"
-            android:paddingLeft="@dimen/appPadding"
-            android:paddingRight="@dimen/appPadding"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="17sp"
-            android:textColor="@color/colorDescriptionGray"
-            android:text="@string/symptoms_description"
-            android:paddingTop="10dp"
-            android:paddingLeft="@dimen/appPadding"
-            android:paddingRight="@dimen/appPadding"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/symptomsRecycler"
-            android:nestedScrollingEnabled="false"
+        <com.whycody.catshealth.views.FixedNestedScrollView
+            android:id="@+id/fixedNestedScrollView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:paddingTop="24dp"
-            android:layoutAnimation="@anim/layout_fall_down"
-            android:layout_weight="1" />
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-</com.whycody.catshealth.views.FixedNestedScrollView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/appPadding"
+                    android:paddingTop="@dimen/appPadding"
+                    android:paddingRight="@dimen/appPadding"
+                    android:text="@string/symptoms"
+                    android:textColor="@color/colorHeaderGray"
+                    android:textSize="30sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/appPadding"
+                    android:paddingTop="10dp"
+                    android:paddingRight="@dimen/appPadding"
+                    android:text="@string/symptoms_description"
+                    android:textColor="@color/colorDescriptionGray"
+                    android:textSize="17sp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/symptomsRecycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layoutAnimation="@anim/layout_fall_down"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="24dp"
+                    android:paddingBottom="70dp"/>
+
+            </LinearLayout>
+
+        </com.whycody.catshealth.views.FixedNestedScrollView>
+
+        <LinearLayout
+            android:id="@+id/symptomsBottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            app:behavior_hideable="true"
+            app:behavior_peekHeight="150dp"
+            app:layout_anchorGravity="bottom"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingStart="@dimen/appPadding"
+                android:paddingTop="15dp"
+                android:paddingBottom="15dp"
+                android:text='@{String.valueOf(checkedSymptomsSize == null ? 0 : checkedSymptomsSize)}'
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:alpha="@{checkedSymptomsSize > 1 ? 1f : 0.4f}"
+                android:background="@android:color/transparent"
+                android:enabled="@{checkedSymptomsSize > 1}"
+                android:paddingEnd="@dimen/appPadding"
+                android:text="Dalej"
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</layout>
