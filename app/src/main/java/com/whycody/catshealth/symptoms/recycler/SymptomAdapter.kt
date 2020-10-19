@@ -4,16 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.whycody.catshealth.R
 import com.whycody.catshealth.BR
 import com.whycody.catshealth.data.SymptomItem
 import com.whycody.catshealth.symptoms.SymptomClickListener
-import kotlinx.android.synthetic.main.item_symptom.view.*
 
-class SymptomAdapter(val symptomClickListener: SymptomClickListener): RecyclerView.Adapter<SymptomAdapter.SymptomHolder>(){
-
-    private var symptomsItems: List<SymptomItem> = listOf()
+class SymptomAdapter(val symptomClickListener: SymptomClickListener): ListAdapter<SymptomItem,
+        SymptomAdapter.SymptomHolder>(SymptomDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SymptomHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -23,20 +22,8 @@ class SymptomAdapter(val symptomClickListener: SymptomClickListener): RecyclerVi
     }
 
     override fun onBindViewHolder(holder: SymptomHolder, position: Int) {
-        holder.setupData(symptomsItems[position])
-        holder.setCheckBoxListener()
+        holder.setupData(getItem(position))
     }
-
-    override fun getItemCount(): Int {
-        return symptomsItems.size
-    }
-
-    fun setSymptomsItems(symptomsItems: List<SymptomItem>) {
-        this.symptomsItems = symptomsItems
-        notifyDataSetChanged()
-    }
-
-    fun getSymptomsItems() = symptomsItems
 
     inner class SymptomHolder(private val binding: ViewDataBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -45,12 +32,6 @@ class SymptomAdapter(val symptomClickListener: SymptomClickListener): RecyclerVi
             binding.setVariable(BR.position, layoutPosition)
             binding.setVariable(BR.listener, symptomClickListener)
             binding.executePendingBindings()
-        }
-
-        fun setCheckBoxListener() {
-            binding.root.symptomItemLinear?.setOnClickListener{
-                binding.root.symptomCheck.isChecked = !binding.root.symptomCheck.isChecked
-            }
         }
     }
 }

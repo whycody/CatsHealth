@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.whycody.catshealth.MainActivity
 import com.whycody.catshealth.R
+import com.whycody.catshealth.data.SymptomItem
 import com.whycody.catshealth.symptoms.recycler.SymptomAdapter
 import kotlinx.android.synthetic.main.fragment_symptoms.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -31,11 +32,14 @@ class SymptomsFragment : Fragment() {
 
     private fun observeSymptoms(adapter: SymptomAdapter) {
         symptomsViewModel.getSymptomsItems().observe(activity as MainActivity, {
-            if(adapter.getSymptomsItems().isEmpty()) {
-                adapter.setSymptomsItems(it)
-                view?.symptomsRecycler?.scheduleLayoutAnimation()
-            }
+            refreshAdapter(adapter, it)
         })
+    }
+
+    private fun refreshAdapter(adapter: SymptomAdapter, symptomsItemsList: List<SymptomItem>) {
+        if(adapter.itemCount == 0)
+            view?.symptomsRecycler?.scheduleLayoutAnimation()
+        adapter.submitList(symptomsItemsList)
     }
 
     private fun loadLayoutAnimation(recyclerView: RecyclerView) {

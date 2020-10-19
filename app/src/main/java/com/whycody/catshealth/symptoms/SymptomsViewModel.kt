@@ -24,37 +24,40 @@ class SymptomsViewModel(symptomRepository: SymptomRepository): ViewModel(), Symp
         }
     }
 
-    private suspend fun collectSymptomsItems() {
+    private suspend fun collectSymptomsItems() =
         flowSymptomsItems().collect { symptomsItems ->
             symptomsItemsList.postValue(symptomsItems)
         }
-    }
 
-    private fun flowSymptomsItems() : Flow<List<SymptomItem>> {
-        return symptomsListFlow
-            .combine(checkedIdsFlow) { list, checkedIds ->
+    private fun flowSymptomsItems() : Flow<List<SymptomItem>> =
+        symptomsListFlow.combine(checkedIdsFlow) { list, checkedIds ->
                 list.map { SymptomItem(it, checkedIds.contains(it.id)) }
             }
-    }
 
     private fun checkItem(id: Int) {
-        if(!checkedIdsFlow.value.isNullOrEmpty()) {
-            val checkedList = checkedIdsFlow.value.toMutableList()
-            checkedList.add(id)
-            checkedIdsFlow.value = checkedList
-        } else checkedIdsFlow.value = listOf(id)
+        if(checkedIdsFlow.value.isNullOrEmpty())
+            checkedIdsFlow.value = listOf(id)
+        else putIdToCheckedIdsFlow(id)
+    }
+
+    private fun putIdToCheckedIdsFlow(id: Int) {
+        val checkedList = checkedIdsFlow.value.toMutableList()
+        checkedList.add(id)
+        checkedIdsFlow.value = checkedList
     }
 
     private fun uncheckItem(id: Int) {
         if(checkedIdsFlow.value.isNullOrEmpty()) return
+        removeIdFromCheckedIdsFlow(id)
+    }
+
+    private fun removeIdFromCheckedIdsFlow(id: Int) {
         val checkedList = checkedIdsFlow.value.toMutableList()
         checkedList.remove(id)
         checkedIdsFlow.value = checkedList
     }
 
-    fun getSymptomsItems(): LiveData<List<SymptomItem>> {
-        return symptomsItemsList
-    }
+    fun getSymptomsItems(): LiveData<List<SymptomItem>> = symptomsItemsList
 
     override fun onClick(symptomItem: SymptomItem, position: Int) {
         if(symptomItem.checked) uncheckItem(symptomItem.symptom.id)
