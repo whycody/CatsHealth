@@ -8,7 +8,7 @@ import com.whycody.catshealth.data.symptom.SymptomDao
 
 @Database(entities = [Disease::class, Symptom::class], version = 1)
 @TypeConverters(Converters::class)
-public abstract class MyDatabase: RoomDatabase() {
+abstract class MyDatabase: RoomDatabase() {
 
     abstract fun diseaseDao(): DiseaseDao
 

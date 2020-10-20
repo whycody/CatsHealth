@@ -55,7 +55,7 @@
                     android:layoutAnimation="@anim/layout_fall_down"
                     android:nestedScrollingEnabled="false"
                     android:paddingTop="24dp"
-                    android:paddingBottom="70dp"/>
+                    android:paddingBottom="40dp"/>
 
             </LinearLayout>
 

@@ -1,13 +1,12 @@
 package com.whycody.catshealth.data
 
 import androidx.room.TypeConverter
-import com.google.gson.Gson
 
 class Converters {
 
     @TypeConverter
-    fun listToJson(value: List<Int>?): String = Gson().toJson(value)
+    fun fromString(stringListString: String) = stringListString.split(";").map { it.toInt() }
 
     @TypeConverter
-    fun jsonToList(value: String) = Gson().fromJson(value, Array<Int>::class.java).toList()
+    fun toString(stringList: List<Int>) = stringList.joinToString(";")
 }

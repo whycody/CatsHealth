@@ -14,6 +14,6 @@ interface DiseaseDao {
     @Query("SELECT * FROM diseases")
     fun getAllDiseases(): LiveData<List<Disease>>
 
-    @Query("SELECT * FROM diseases WHERE symptoms IN (:symptoms) ORDER BY priority")
+    @Query("SELECT * FROM diseases WHERE symptoms_ids IN (:symptoms) ORDER BY priority")
     fun getDiseasesWithSymptoms(symptoms: List<Int>): LiveData<List<Disease>>
 }

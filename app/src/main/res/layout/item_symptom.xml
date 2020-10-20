@@ -24,7 +24,7 @@
         <View
             android:id="@+id/underline"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@android:color/black"
             android:alpha="0.08"
             android:visibility="@{position==0 ? View.INVISIBLE : View.VISIBLE}"/>
