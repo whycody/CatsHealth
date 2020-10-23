@@ -34,12 +34,19 @@ data class Disease(
 
 data class DiseaseResult(
     val id: Int,
+    val priority: Int = 1,
     val symptomsIds: List<Int>,
-    val symptomsContains: Int,
-    val symptomsNeeds: Int)
+    val symptomsContains: List<Int>,
+    val symptomsNeeds: List<Int>)
 
 data class SearchResult(
     var probableDiseaseId: Int? = null,
     var possibleDiseases: List<DiseaseResult> = listOf(),
     var alreadyAskedSymptomsIds: MutableList<Int> = mutableListOf(),
-    var alreadyAskedDiseasesQuestionsIds: MutableList<Int> = mutableListOf())
+    var alreadyAskedDiseasesQuestionsIds: MutableList<Int> = mutableListOf(),
+    var currentQuestion: Question? = null)
+
+data class Question(
+    val question: String,
+    val type: Int,
+    val askingObjectId: Int)

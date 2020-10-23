@@ -12,23 +12,31 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.whycody.catshealth.MainActivity
+import com.whycody.catshealth.MainNavigation
 import com.whycody.catshealth.R
+import com.whycody.catshealth.data.SearchResult
 import com.whycody.catshealth.data.SymptomItem
 import com.whycody.catshealth.databinding.FragmentSymptomsBinding
+import com.whycody.catshealth.question.QuestionFragment
 import com.whycody.catshealth.symptoms.recycler.SymptomAdapter
+import com.whycody.catshealth.utils.SearchDiseaseUtil
 import kotlinx.android.synthetic.main.fragment_symptoms.view.*
+import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class SymptomsFragment : Fragment() {
 
     private lateinit var symptomsBottomSheetBeh: BottomSheetBehavior<LinearLayout>
     private val symptomsViewModel: SymptomsViewModel by viewModel()
+    private val searchResult: SearchResult by inject()
+    private val searchDiseaseUtil: SearchDiseaseUtil by inject()
     private var checkedSymptomItems = listOf<SymptomItem>()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val binding: FragmentSymptomsBinding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_symptoms, container, false)
+        binding.nextBtn.setOnClickListener { nextBtnClicked() }
         symptomsBottomSheetBeh = BottomSheetBehavior.from(binding.symptomsBottomSheet)
         symptomsBottomSheetBeh.state = BottomSheetBehavior.STATE_HIDDEN
         setupRecyclerView(binding)
@@ -41,6 +49,15 @@ class SymptomsFragment : Fragment() {
         binding.symptomsRecycler.adapter = adapter
         observeSymptoms(adapter, binding)
         loadLayoutAnimation(binding.symptomsRecycler)
+    }
+
+    private fun nextBtnClicked() {
+        searchDiseaseUtil.setupSearchResult(searchResult, checkedSymptomItems.map { it.symptom.id })
+        if(searchResult.currentQuestion != null) showQuestionFragment()
+    }
+
+    private fun showQuestionFragment() {
+        (activity as MainNavigation).navigateTo(QuestionFragment(), true)
     }
 
     private fun observeSymptoms(adapter: SymptomAdapter, binding: FragmentSymptomsBinding) {

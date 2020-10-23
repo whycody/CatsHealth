@@ -6,6 +6,7 @@ import com.whycody.catshealth.data.disease.DiseaseDao
 import com.whycody.catshealth.data.disease.DiseaseRepository
 import com.whycody.catshealth.data.symptom.SymptomDao
 import com.whycody.catshealth.data.symptom.SymptomRepository
+import com.whycody.catshealth.question.QuestionViewModel
 import com.whycody.catshealth.symptoms.SymptomsViewModel
 import com.whycody.catshealth.utils.SearchDiseaseUtil
 import com.whycody.catshealth.utils.SearchDiseaseUtilImpl
@@ -33,7 +34,11 @@ val dataModule = module {
     single { provideDatabase(androidApplication()) }
     single { provideSymptomDao(get()) }
     single { provideDiseaseDao(get()) }
-    single<SearchDiseaseUtil> { SearchDiseaseUtilImpl(get()) }
+    single { SearchResult() }
+}
+
+val utilModule = module {
+    single<SearchDiseaseUtil> { SearchDiseaseUtilImpl(get(), get()) }
 }
 
 val repositoryModule = module {
@@ -43,4 +48,5 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     viewModel { SymptomsViewModel(get())}
+    viewModel { QuestionViewModel(get()) }
 }

@@ -6,4 +6,7 @@
     <string name="symptoms_description">Co cię zaniepokoiło? Zaznacz co najmniej dwa objawy, które zauważyłeś u swojego kota.</string>
     <string name="symptoms">Objawy</string>
     <string name="symptom">Symptom</string>
+    <string name="one_more_question">Musimy zadać jeszcze jedno pytanie aby podać trafniejszą diagnozę</string>
+    <string name="not_noticed">Nie, nie zauważyłem.</string>
+    <string name="yes_noticed">Tak, zwróciłem na to uwagę.</string>
 </resources>

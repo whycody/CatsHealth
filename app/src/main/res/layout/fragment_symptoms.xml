@@ -90,6 +90,7 @@
                 android:layout_weight="1" />
 
             <Button
+                android:id="@+id/nextBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:alpha="@{checkedSymptomsSize > 1 ? 1f : 0.4f}"
