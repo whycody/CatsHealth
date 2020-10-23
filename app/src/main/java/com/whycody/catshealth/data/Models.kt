@@ -26,13 +26,20 @@ data class Disease(
     @NotNull val name: String,
     val type: String,
     @ColumnInfo(name = "symptoms_names") val symptomsNames: String,
-    @ColumnInfo(name = "symptoms_ids") val symptoms: List<Int>,
+    @ColumnInfo(name = "symptoms_ids") val symptomsIds: List<Int>,
     val treatment: String,
     @ColumnInfo(name = "additional_question") val additionalQuestion: String? = null,
     @ColumnInfo(name = "article_link") val articleLink: String,
     val priority: Int = 1)
 
+data class DiseaseResult(
+    val id: Int,
+    val symptomsIds: List<Int>,
+    val symptomsContains: Int,
+    val symptomsNeeds: Int)
+
 data class SearchResult(
-    val probableDisease: Disease? = null,
-    val possibleDiseases: List<Disease>,
-    var alreadyAskedSymptoms: List<Symptom> = listOf())
+    var probableDiseaseId: Int? = null,
+    var possibleDiseases: List<DiseaseResult> = listOf(),
+    var alreadyAskedSymptomsIds: MutableList<Int> = mutableListOf(),
+    var alreadyAskedDiseasesQuestionsIds: MutableList<Int> = mutableListOf())

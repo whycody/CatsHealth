@@ -27,15 +27,20 @@ class SymptomsFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val binding: FragmentSymptomsBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_symptoms, container, false)
-        val adapter = SymptomAdapter(symptomsViewModel)
+        val binding: FragmentSymptomsBinding = DataBindingUtil.inflate(inflater,
+            R.layout.fragment_symptoms, container, false)
         symptomsBottomSheetBeh = BottomSheetBehavior.from(binding.symptomsBottomSheet)
         symptomsBottomSheetBeh.state = BottomSheetBehavior.STATE_HIDDEN
+        setupRecyclerView(binding)
+        return binding.root
+    }
+
+    private fun setupRecyclerView(binding: FragmentSymptomsBinding) {
+        val adapter = SymptomAdapter(symptomsViewModel)
         binding.symptomsRecycler.layoutManager = LinearLayoutManager(activity?.applicationContext)
         binding.symptomsRecycler.adapter = adapter
-        loadLayoutAnimation(binding.symptomsRecycler)
         observeSymptoms(adapter, binding)
-        return binding.root
+        loadLayoutAnimation(binding.symptomsRecycler)
     }
 
     private fun observeSymptoms(adapter: SymptomAdapter, binding: FragmentSymptomsBinding) {

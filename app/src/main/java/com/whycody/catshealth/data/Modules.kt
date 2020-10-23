@@ -7,6 +7,8 @@ import com.whycody.catshealth.data.disease.DiseaseRepository
 import com.whycody.catshealth.data.symptom.SymptomDao
 import com.whycody.catshealth.data.symptom.SymptomRepository
 import com.whycody.catshealth.symptoms.SymptomsViewModel
+import com.whycody.catshealth.utils.SearchDiseaseUtil
+import com.whycody.catshealth.utils.SearchDiseaseUtilImpl
 import org.koin.android.ext.koin.androidApplication
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -31,6 +33,7 @@ val dataModule = module {
     single { provideDatabase(androidApplication()) }
     single { provideSymptomDao(get()) }
     single { provideDiseaseDao(get()) }
+    single<SearchDiseaseUtil> { SearchDiseaseUtilImpl(get()) }
 }
 
 val repositoryModule = module {
