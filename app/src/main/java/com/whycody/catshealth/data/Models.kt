@@ -38,9 +38,11 @@ data class DiseaseResult(
     val priority: Int = 1,
     val symptomsIds: List<Int>,
     val symptomsContains: List<Int>,
-    val symptomsNeeds: List<Int>)
+    val symptomsNeeds: List<Int>,
+    val symptomsPercentage: Int)
 
 data class SearchResult(
+    var symptomsIds: MutableList<Int> = mutableListOf(),
     var probableDiseaseId: Int? = null,
     var possibleDiseases: List<DiseaseResult> = listOf(),
     var alreadyAskedSymptomsIds: MutableList<Int> = mutableListOf(),

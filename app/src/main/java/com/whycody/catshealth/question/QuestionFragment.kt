@@ -19,6 +19,7 @@ class QuestionFragment : Fragment() {
         val binding: FragmentQuestionBinding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_question, container, false)
         binding.questionViewModel = questionViewModel
+        binding.lifecycleOwner = activity
         return binding.root
     }
 

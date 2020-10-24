@@ -48,5 +48,5 @@ val repositoryModule = module {
 
 val viewModelModule = module {
     viewModel { SymptomsViewModel(get())}
-    viewModel { QuestionViewModel(get()) }
+    viewModel { QuestionViewModel(get(), get()) }
 }

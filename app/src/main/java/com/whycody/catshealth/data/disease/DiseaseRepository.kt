@@ -13,12 +13,13 @@ class DiseaseRepository(private val diseaseDao: DiseaseDao) {
         return diseaseDao.getAllDiseases().filter { disease ->
             disease.symptomsIds.any { symptoms.contains(it) }
         }.map { disease -> getDiseaseResult(disease, symptoms)
-        }.sortedWith(compareBy<DiseaseResult> {it.symptomsNeeds.size}.thenByDescending { it.priority })
+        }.sortedWith(compareByDescending<DiseaseResult> {it.symptomsPercentage}.thenByDescending { it.priority })
     }
 
     private fun getDiseaseResult(disease: Disease, symptoms: List<Int>): DiseaseResult {
         val symptomsContains = disease.symptomsIds.filter { symptomId -> symptoms.contains(symptomId) }
         val symptomsNeeded = disease.symptomsIds.filter { symptomId -> !symptoms.contains(symptomId) }
-        return DiseaseResult(disease.id, disease.priority, disease.symptomsIds, symptomsContains, symptomsNeeded)
+        val symptomsPercentage = ((symptomsContains.size.toDouble()/disease.symptomsIds.size.toDouble()) * 100).toInt()
+        return DiseaseResult(disease.id, disease.priority, disease.symptomsIds, symptomsContains, symptomsNeeded, symptomsPercentage)
     }
 }
