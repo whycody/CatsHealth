@@ -9,7 +9,8 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "symptoms")
 data class Symptom(
     @PrimaryKey @NonNull val id: Int,
-    val name: String) {
+    val name: String,
+    @ColumnInfo(name = "desc_question") val descQuestion: String) {
 
     override fun toString(): String {
         return "Symptom $id: $name"

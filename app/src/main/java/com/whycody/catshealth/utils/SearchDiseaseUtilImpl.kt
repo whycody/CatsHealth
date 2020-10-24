@@ -45,7 +45,7 @@ class SearchDiseaseUtilImpl(private val diseaseRepository: DiseaseRepository,
     private fun getQuestionName(type: Int, askingObjectId: Int) =
         if(type == QuestionFragment.ADDITIONAL_QUESTION)
             diseaseRepository.getDisease(askingObjectId).additionalQuestion!!
-        else "Czy zauważyłeś u swojego kota ten objaw? ${symptomRepository.getSymptom(askingObjectId).name}"
+        else symptomRepository.getSymptom(askingObjectId).descQuestion
 
     private fun searchProbableDisease(searchResult: SearchResult) {
         searchResult.possibleDiseases.forEach { diseaseResult ->
