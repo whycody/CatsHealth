@@ -18,6 +18,7 @@ import com.whycody.catshealth.data.SearchResult
 import com.whycody.catshealth.data.SymptomItem
 import com.whycody.catshealth.databinding.FragmentSymptomsBinding
 import com.whycody.catshealth.question.QuestionFragment
+import com.whycody.catshealth.result.ResultFragment
 import com.whycody.catshealth.symptoms.recycler.SymptomAdapter
 import com.whycody.catshealth.utils.SearchDiseaseUtil
 import kotlinx.android.synthetic.main.fragment_symptoms.view.*
@@ -54,10 +55,15 @@ class SymptomsFragment : Fragment() {
     private fun nextBtnClicked() {
         searchDiseaseUtil.setupSearchResult(searchResult, checkedSymptomItems.map { it.symptom.id })
         if(searchResult.currentQuestion != null) showQuestionFragment()
+        else showResultFragment()
     }
 
     private fun showQuestionFragment() {
-        (activity as MainNavigation).navigateTo(QuestionFragment(), true, tag = "QuestionFragment")
+        (activity as MainNavigation).navigateTo(QuestionFragment(), true, "QuestionFragment")
+    }
+
+    private fun showResultFragment() {
+        (activity as MainActivity).navigateTo(ResultFragment(), true)
     }
 
     private fun observeSymptoms(adapter: SymptomAdapter, binding: FragmentSymptomsBinding) {

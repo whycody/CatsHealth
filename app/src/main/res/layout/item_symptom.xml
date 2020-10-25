@@ -8,7 +8,7 @@
             type="com.whycody.catshealth.data.SymptomItem" />
         <variable
             name="position"
-            type="Integer" />
+            type="int" />
         <variable
             name="listener"
             type="com.whycody.catshealth.symptoms.SymptomClickListener" />

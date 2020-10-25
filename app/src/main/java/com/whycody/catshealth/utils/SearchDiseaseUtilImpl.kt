@@ -11,13 +11,21 @@ class SearchDiseaseUtilImpl(private val diseaseRepository: DiseaseRepository,
                             private val symptomRepository: SymptomRepository): SearchDiseaseUtil {
 
     override fun setupSearchResult(searchResult: SearchResult, symptomsIds: List<Int>) {
-        searchResult.alreadyAskedDiseasesQuestionsIds = mutableListOf()
-        searchResult.alreadyAskedSymptomsIds = mutableListOf()
+        resetSearchResult(searchResult)
         searchResult.probableDiseaseId = null
         searchResult.possibleDiseases = diseaseRepository.getDiseasesWithSymptoms(symptomsIds)
         searchResult.symptomsIds = symptomsIds.toMutableList()
         searchProbableDisease(searchResult)
         setCurrentQuestion(searchResult)
+    }
+
+    private fun resetSearchResult(searchResult: SearchResult) {
+        searchResult.symptomsIds = mutableListOf()
+        searchResult.probableDiseaseId = null
+        searchResult.possibleDiseases = listOf()
+        searchResult.alreadyAskedDiseasesQuestionsIds = mutableListOf()
+        searchResult.alreadyAskedSymptomsIds = mutableListOf()
+        searchResult.currentQuestion = null
     }
 
     override fun refreshSearchResult(searchResult: SearchResult) {

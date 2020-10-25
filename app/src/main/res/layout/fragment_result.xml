@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <import type="android.view.View"/>
         <variable
             name="resultViewModel"
             type="com.whycody.catshealth.result.ResultViewModel" />
+        <variable
+            name="disease"
+            type="com.whycody.catshealth.data.Disease" />
+        <variable
+            name="position"
+            type="int" />
     </data>
 
     <com.whycody.catshealth.views.FixedNestedScrollView
@@ -46,7 +53,7 @@
                 android:textSize="17sp"
                 android:textColor="@android:color/white"
                 android:background="@color/colorAccent"
-                android:text="@{resultViewModel.possibleDiseases}"
+                android:text="@{resultViewModel.symptoms}"
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="30dp"
                 android:layout_marginStart="@dimen/appPadding"
@@ -72,13 +79,18 @@
                     android:paddingBottom="20dp"
                     android:text="@string/probable_disease"/>
 
+                <include layout="@layout/item_disease"
+                    app:disease="@{disease}"
+                    app:position="@{position}"/>
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/possibleDiseasesLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="@{resultViewModel.possibleDiseases.size() > 0 ? View.VISIBLE : View.GONE}">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,9 +104,10 @@
                     android:text="@string/possible_diseases"/>
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/possibleDiseasesRecycler"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:nestedScrollingEnabled="false"/>
+                    android:nestedScrollingEnabled="false" />
 
             </LinearLayout>
 

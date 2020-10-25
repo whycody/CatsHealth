@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="disease"
+            type="com.whycody.catshealth.data.Disease" />
+        <variable
+            name="position"
+            type="int" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FAFAFA"
+        android:paddingBottom="20dp">
+
+        <View
+            android:id="@+id/underline"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/black"
+            android:alpha="0.08"
+            android:layout_marginBottom="20dp"
+            android:visibility="@{position==0 ? View.INVISIBLE : View.VISIBLE}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorHeaderGray"
+            android:paddingStart="@dimen/appPadding"
+            android:paddingEnd="@dimen/appPadding"
+            android:textSize="22sp"
+            android:text="@{disease.name}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorDescriptionGray"
+            android:text="@{disease.treatment}"
+            android:maxLines="2"
+            android:paddingStart="@dimen/appPadding"
+            android:paddingEnd="@dimen/appPadding"
+            android:lineSpacingExtra="2dp"
+            android:paddingTop="5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="2dp"
+            android:paddingStart="@dimen/appPadding"
+            android:paddingEnd="@dimen/appPadding"
+            android:text="@string/read_more"
+            android:textColor="@color/colorLightGray"/>
+
+    </LinearLayout>
+
+</layout>

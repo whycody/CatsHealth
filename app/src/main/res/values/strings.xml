@@ -15,4 +15,5 @@
     <string name="not_enough_symptoms">Podałeś zbyt mało objawów na podstawie których moglibyśmy ustalić prawdopodobną chorobę</string>
     <string name="probable_disease">Prawdopodobna choroba</string>
     <string name="possible_diseases">Możliwe choroby</string>
+    <string name="read_more">... Czytaj więcej</string>
 </resources>
