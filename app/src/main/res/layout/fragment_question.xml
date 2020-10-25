@@ -19,6 +19,7 @@
             android:layout_height="0dp">
 
             <ImageView
+                android:id="@+id/questionCircle"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
@@ -52,39 +53,53 @@
             android:paddingEnd="@dimen/appPadding"
             android:layout_marginTop="8dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/colorHeaderGray"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:text="@{questionViewModel.question}" />
-
-            <Button
-                android:id="@+id/yesQuestionBtn"
+            <LinearLayout
+                android:id="@+id/headerQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                android:onClick="@{() -> questionViewModel.btnClicked(true)}"
-                android:background="@drawable/sh_question_btn"
-                android:layout_marginTop="60dp"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="@string/yes_noticed"/>
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/noQuestionBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAllCaps="false"
-                android:textSize="20sp"
-                android:onClick="@{() -> questionViewModel.btnClicked(false)}"
-                android:background="@drawable/sh_question_btn"
-                android:layout_marginTop="20dp"
-                android:gravity="start"
-                android:padding="16dp"
-                android:text="@string/not_noticed"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHeaderGray"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
+                    android:text="@{questionViewModel.question}" />
+
+                <Button
+                    android:id="@+id/yesQuestionBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{questionViewModel.clickedBtnIndex == -1}"
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorGray"
+                    android:onClick="@{() -> questionViewModel.btnClicked(true)}"
+                    android:background="@{questionViewModel.clickedBtnIndex == 0 ? @drawable/sh_question_btn_clicked : @drawable/sh_question_btn}"
+                    android:layout_marginTop="60dp"
+                    android:gravity="start"
+                    android:padding="16dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:text="@string/yes_noticed"/>
+
+                <Button
+                    android:id="@+id/noQuestionBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:enabled="@{questionViewModel.clickedBtnIndex == -1}"
+                    android:textAllCaps="false"
+                    android:textSize="20sp"
+                    android:textColor="@color/colorGray"
+                    android:onClick="@{() -> questionViewModel.btnClicked(false)}"
+                    android:background="@{questionViewModel.clickedBtnIndex == 1 ? @drawable/sh_question_btn_clicked : @drawable/sh_question_btn}"
+                    android:layout_marginTop="20dp"
+                    android:gravity="start"
+                    android:padding="16dp"
+                    style="?android:attr/borderlessButtonStyle"
+                    android:text="@string/not_noticed"/>
+
+            </LinearLayout>
 
             <TextView
                 android:layout_weight="1"
