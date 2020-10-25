@@ -7,6 +7,7 @@ import com.whycody.catshealth.data.disease.DiseaseRepository
 import com.whycody.catshealth.data.symptom.SymptomDao
 import com.whycody.catshealth.data.symptom.SymptomRepository
 import com.whycody.catshealth.question.QuestionViewModel
+import com.whycody.catshealth.result.ResultViewModel
 import com.whycody.catshealth.symptoms.SymptomsViewModel
 import com.whycody.catshealth.utils.SearchDiseaseUtil
 import com.whycody.catshealth.utils.SearchDiseaseUtilImpl
@@ -49,4 +50,5 @@ val repositoryModule = module {
 val viewModelModule = module {
     viewModel { SymptomsViewModel(get())}
     viewModel { QuestionViewModel(get(), get()) }
+    viewModel { ResultViewModel(get(), get(), get()) }
 }

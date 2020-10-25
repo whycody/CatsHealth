@@ -1,6 +1,7 @@
 package com.whycody.catshealth.question
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +12,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import com.whycody.catshealth.MainActivity
+import com.whycody.catshealth.MainNavigation
 import com.whycody.catshealth.R
 import com.whycody.catshealth.databinding.FragmentQuestionBinding
+import com.whycody.catshealth.result.ResultFragment
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class QuestionFragment : Fragment(), Animation.AnimationListener {
@@ -35,15 +38,26 @@ class QuestionFragment : Fragment(), Animation.AnimationListener {
         questionCircle = binding.questionCircle
         headerQuestion.startAnimation(fadeInAnim)
         questionCircle.startAnimation(circleQuestionAnim)
-        observeClickedBtnIndex()
+        observeQuestionState()
         return binding.root
     }
 
-    private fun observeClickedBtnIndex() {
-        questionViewModel.getClickedBtnIndex().observe(activity as MainActivity, {
-            if(it == -1) return@observe
-            headerQuestion.startAnimation(fadeOutAnim)
+    private fun observeQuestionState() {
+        questionViewModel.questionState.observe(activity as MainActivity, {
+            if(it == DEFAULT_VALUE) return@observe
+            startQuestionStateTimer(it)
         })
+    }
+
+    private fun startQuestionStateTimer(questionState: Int) {
+        object:CountDownTimer(400, 100) {
+            override fun onTick(millisUntilFinished: Long) { }
+
+            override fun onFinish() {
+                if(questionState == QUESTION_IS_FILLED) headerQuestion.startAnimation(fadeOutAnim)
+                else (activity as MainNavigation).navigateTo(ResultFragment(), true)
+            }
+        }.start()
     }
 
     private fun setupAnimations() {
@@ -65,6 +79,10 @@ class QuestionFragment : Fragment(), Animation.AnimationListener {
     companion object {
         const val SYMPTOM_QUESTION = 0
         const val ADDITIONAL_QUESTION = 1
+
+        const val DEFAULT_VALUE = -1
+        const val QUESTION_IS_FILLED = 0
+        const val QUESTION_IS_EMPTY = 1
     }
 
 }

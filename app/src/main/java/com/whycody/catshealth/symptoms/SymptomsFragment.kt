@@ -57,7 +57,7 @@ class SymptomsFragment : Fragment() {
     }
 
     private fun showQuestionFragment() {
-        (activity as MainNavigation).navigateTo(QuestionFragment(), true)
+        (activity as MainNavigation).navigateTo(QuestionFragment(), true, tag = "QuestionFragment")
     }
 
     private fun observeSymptoms(adapter: SymptomAdapter, binding: FragmentSymptomsBinding) {

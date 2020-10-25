@@ -1,7 +1,5 @@
 package com.whycody.catshealth.question
 
-import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.whycody.catshealth.data.SearchResult
@@ -11,12 +9,16 @@ class QuestionViewModel(private val searchResult: SearchResult,
                         private val searchDiseaseUtil: SearchDiseaseUtil): ViewModel() {
 
     var question: MutableLiveData<String> = MutableLiveData(searchResult.currentQuestion?.question)
-    var clickedBtnIndex: MutableLiveData<Int> = MutableLiveData(-1)
+    var clickedBtnIndex: MutableLiveData<Int> = MutableLiveData(QuestionFragment.DEFAULT_VALUE)
+    var questionState: MutableLiveData<Int> = MutableLiveData(QuestionFragment.DEFAULT_VALUE)
 
     fun btnClicked(noticed: Boolean) {
         setSearchResultVariables(noticed)
         searchDiseaseUtil.refreshSearchResult(searchResult)
         clickedBtnIndex.value = if(noticed) 0 else 1
+        questionState.value =
+            if(searchResult.currentQuestion == null) QuestionFragment.QUESTION_IS_EMPTY
+            else QuestionFragment.QUESTION_IS_FILLED
     }
 
     private fun setSearchResultVariables(noticed: Boolean) {
@@ -29,16 +31,10 @@ class QuestionViewModel(private val searchResult: SearchResult,
     }
 
     fun setupQuestion() {
-        question.value = "No more questions"
-        clickedBtnIndex.value = -1
         if(searchResult.currentQuestion != null)
             question.value = searchResult.currentQuestion?.question
-        else if(searchResult.currentQuestion == null && searchResult.probableDiseaseId != null)
-            Log.d("MOJTAG", "Probable disease: ${searchResult.probableDiseaseId}")
-        else Log.d("MOJTAG", "Could not find probable disease")
+        else question.value = ""
+        clickedBtnIndex.value = QuestionFragment.DEFAULT_VALUE
+        questionState.value = QuestionFragment.DEFAULT_VALUE
     }
-
-    fun getQuestion(): LiveData<String> = question
-
-    fun getClickedBtnIndex(): LiveData<Int> = clickedBtnIndex
 }

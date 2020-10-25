@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="resultViewModel"
+            type="com.whycody.catshealth.result.ResultViewModel" />
+    </data>
+
+    <com.whycody.catshealth.views.FixedNestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/appPadding"
+                android:text='@{resultViewModel.probableDiseaseExists ? @string/list_of_possible_diseases : @string/opss}'
+                android:textColor="@color/colorHeaderGray"
+                android:paddingStart="@dimen/appPadding"
+                android:paddingEnd="@dimen/appPadding"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="10dp"
+                android:text='@{resultViewModel.probableDiseaseExists ? @string/we_have_probable_disease : @string/not_enough_symptoms}'
+                android:textColor="@color/colorDescriptionGray"
+                android:paddingStart="@dimen/appPadding"
+                android:paddingEnd="@dimen/appPadding"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="17sp"
+                android:textColor="@android:color/white"
+                android:background="@color/colorAccent"
+                android:text="@{resultViewModel.possibleDiseases}"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                android:layout_marginStart="@dimen/appPadding"
+                android:layout_marginEnd="@dimen/appPadding"
+                android:padding="12dp" />
+
+            <LinearLayout
+                android:id="@+id/probableDiseaseLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="@{resultViewModel.probableDiseaseExists ? View.VISIBLE : View.GONE}"
+                android:layout_marginBottom="30dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHeaderGray"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingStart="@dimen/appPadding"
+                    android:paddingEnd="@dimen/appPadding"
+                    android:paddingBottom="20dp"
+                    android:text="@string/probable_disease"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/possibleDiseasesLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorHeaderGray"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    android:paddingBottom="20dp"
+                    android:paddingStart="@dimen/appPadding"
+                    android:paddingEnd="@dimen/appPadding"
+                    android:text="@string/possible_diseases"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </com.whycody.catshealth.views.FixedNestedScrollView>
+
+</layout>

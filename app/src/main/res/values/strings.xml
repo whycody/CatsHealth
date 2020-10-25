@@ -9,4 +9,10 @@
     <string name="one_more_question">Musimy zadać jeszcze jedno pytanie aby podać trafniejszą diagnozę</string>
     <string name="not_noticed">Nie, nie zauważyłem.</string>
     <string name="yes_noticed">Tak, zwróciłem na to uwagę.</string>
+    <string name="list_of_possible_diseases">Lista możliwych chorób</string>
+    <string name="opss">Opss..</string>
+    <string name="we_have_probable_disease">Na podstawie podanych objawów wyznaczyliśmy listę chorób, które może mieć twój kot.</string>
+    <string name="not_enough_symptoms">Podałeś zbyt mało objawów na podstawie których moglibyśmy ustalić prawdopodobną chorobę</string>
+    <string name="probable_disease">Prawdopodobna choroba</string>
+    <string name="possible_diseases">Możliwe choroby</string>
 </resources>
