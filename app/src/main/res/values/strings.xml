@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CatsHealth</string>
+    <string name="app_name">Kocie Zdrowie</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_diseases_by_symptoms">Szukaj choroby na podstawie objawów</string>
     <string name="search_diseases_from_list">Szukaj choroby z listy dostępnych</string>
